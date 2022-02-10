@@ -16,6 +16,25 @@ module "resource_group" {
   }
 }
 
+module "storage_account" {
+  source = "git::https://github.com/danielscholl-terraform/module-storage-account?ref=v1.0.0"
+  depends_on = [module.resource_group]
+
+  resource_group_name = module.resource_group.name
+  name                = substr("iacterraform${module.resource_group.random}", 0, 23)
+
+  containers = [
+    {
+      name        = "iac-container",
+      access_type = "private"
+    }
+  ]
+
+  resource_tags = {
+    iac = "terraform"
+  }
+}
+
 ```
 
 <!--- BEGIN_TF_DOCS --->
