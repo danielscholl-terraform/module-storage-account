@@ -6,11 +6,6 @@ variable "name" {
   description = "The name of the Storage Account. (Optional) - names override"
   type        = string
   default     = null
-
-  validation {
-    condition     = length(regexall("[a-z0-9]{2,24}", var.name)) == 1
-    error_message = "ERROR: name must [a-z0-9]{2,24}."
-  }
 }
 
 variable "resource_group_name" {
